@@ -4,7 +4,7 @@
         "git add"
     ],
     "**/*.{ts,tsx}": [
-        "npm run api:lint",
+        "npm run lint",
         "prettier --parser typescript --write",
         "git add"
     ]
