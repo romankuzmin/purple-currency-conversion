@@ -3,10 +3,12 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { default as settingsReducer } from './settings';
 
 export const browserHistory = createBrowserHistory();
 
 const rootReducer = combineReducers({
+    settings: settingsReducer,
     router: connectRouter(browserHistory),
 });
 
@@ -23,9 +25,10 @@ const middleware = [
 const preloadedState = {};
 
 const persistConfig = {
-    key: 'root',
+    key: 'settings',
     version: 1,
     storage,
+    whitelist: ['settings'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
