@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express';
-import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-api-data-source';
+import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-data-source';
 
 const typeDefs = gql`
     type Currency {

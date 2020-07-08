@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import * as express from 'express';
-import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-api-data-source';
+import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-data-source';
 import { resolvers, typeDefs } from './schema';
 
 const server = new ApolloServer({
