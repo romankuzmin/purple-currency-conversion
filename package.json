@@ -34,6 +34,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@reduxjs/toolkit": "^1.4.0",
+    "apollo-datasource-rest": "^0.9.3",
     "apollo-server-express": "^2.15.1",
     "connected-react-router": "^6.8.0",
     "graphql": "^15.3.0",
