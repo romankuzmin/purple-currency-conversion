@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-api-data-source';
 
 const typeDefs = gql`
     type Currency {
@@ -11,20 +12,18 @@ const typeDefs = gql`
     }
 `;
 
-const currencies = [
-    {
-        code: 'CZK',
-        title: 'CZK',
-    },
-    {
-        code: 'USD',
-        title: 'USD',
-    },
-];
+type DataSources = {
+    exchangeRatesApi: ExchangeRatesDataSource;
+};
+
+type Context = {
+    dataSources: DataSources;
+};
 
 const resolvers = {
     Query: {
-        currencies: () => currencies,
+        currencies: async (parent: void, args: void, { dataSources }: Context) =>
+            dataSources.exchangeRatesApi.getCurrencies(),
     },
 };
 
