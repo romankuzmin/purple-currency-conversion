@@ -4,6 +4,7 @@ import CurrencyConvertHistoryDataSource from './currency-convert-history/currenc
 import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-data-source';
 import { resolvers, typeDefs } from './schema';
 import { createStore } from './store/create-store';
+import config from './config';
 
 const store = createStore();
 
@@ -15,16 +16,14 @@ const server = new ApolloServer({
         currencyConvertHistory: new CurrencyConvertHistoryDataSource({ store }),
     }),
     context: () => ({
-        settings: {
-            totalAmountConvertedCurrency: 'USD'
-        }
-    })
+        settings: config.get('settings'),
+    }),
 });
 
 const app: express.Application = express();
 
 server.applyMiddleware({ app });
 
-const port = process.env.PORT || 4000;
+const port = config.get('port');
 
 app.listen({ port }, () => console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`));
