@@ -14,6 +14,11 @@ const server = new ApolloServer({
         exchangeRatesApi: new ExchangeRatesDataSource(),
         currencyConvertHistory: new CurrencyConvertHistoryDataSource({ store }),
     }),
+    context: () => ({
+        settings: {
+            totalAmountConvertedCurrency: 'USD'
+        }
+    })
 });
 
 const app: express.Application = express();

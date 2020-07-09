@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express';
-import CurrencyConvertHistoryDataSource from './currency-convert-history/currency-convert-history-data-source'
+import CurrencyConvertHistoryDataSource from './currency-convert-history/currency-convert-history-data-source';
 import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-data-source';
 
 const typeDefs = gql`
@@ -8,12 +8,23 @@ const typeDefs = gql`
         title: String!
     }
 
+    type Stats {
+        mostPopularDestinationCurrency: String!
+        totalAmountConverted: Float!
+        totalNumberOfConversions: Int!
+    }
+
     type Query {
         currencies: [Currency]
+        statistics(input: StatisticsInput): Stats
     }
 
     type Mutation {
         convertCurrency(input: ConvertCurrencyInput!): ConvertCurrencyPayload
+    }
+
+    input StatisticsInput {
+        totalAmountConvertedCurrency: String
     }
 
     input ConvertCurrencyInput {
@@ -34,6 +45,15 @@ type DataSources = {
 
 type Context = {
     dataSources: DataSources;
+    settings: {
+        totalAmountConvertedCurrency: string;
+    };
+};
+
+type StatisticsArgs = {
+    input: {
+        totalAmountConvertedCurrency: string;
+    };
 };
 
 type ConvertCurrencyArgs = {
@@ -48,6 +68,10 @@ const resolvers = {
     Query: {
         currencies: async (parent: void, args: void, { dataSources }: Context) =>
             dataSources.exchangeRatesApi.getCurrencies(),
+        statistics: async (parent: void, { input }: StatisticsArgs, { dataSources, settings }: Context) =>
+            dataSources.currencyConvertHistory.getStatistics(
+                (input && input.totalAmountConvertedCurrency) || settings.totalAmountConvertedCurrency,
+            ),
     },
     Mutation: {
         convertCurrency: async (parent: void, { input }: ConvertCurrencyArgs, { dataSources }: Context) => {
@@ -55,7 +79,7 @@ const resolvers = {
             const convertedAmount = await dataSources.exchangeRatesApi.convert(amount, from, to);
             const currencyConvertHistory = await dataSources.currencyConvertHistory.save({
                 ...input,
-                convertedAmount
+                convertedAmount,
             });
 
             return {
