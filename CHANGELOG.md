@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.0.2...v1.1.0) (2020-07-09)
+
+
+### Features
+
+* bulk convert ([d14a4ec](https://github.com/romankuzmin/purple-currency-conversion/commit/d14a4ec340f9ec3433f495231e9d353caa75c818))
+* change statistics ([75d4a3c](https://github.com/romankuzmin/purple-currency-conversion/commit/75d4a3caa390ccef97652baaa97d8ca417590e0a))
+
+
+### Bug Fixes
+
+* remove polling ([3100853](https://github.com/romankuzmin/purple-currency-conversion/commit/31008535a9f33c44b5e889569a7ef2c7e21cba72))
+* the total number of amounts transferred by all currencies ([04ee28a](https://github.com/romankuzmin/purple-currency-conversion/commit/04ee28acc17778ca41f42c27d483779fcfc56338))
+
 ### [1.0.2](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.0.0...v1.0.2) (2020-07-09)
 
 ### [1.0.1](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.0.0...v1.0.1) (2020-07-09)
