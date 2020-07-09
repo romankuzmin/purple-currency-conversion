@@ -7,6 +7,7 @@ import { useSettings } from './redux/settings/useSettings';
 import { HomeScreen } from './screens';
 import { GraphQLProvider } from './utils/graphql';
 import { IntlProvider } from './utils/i18n';
+import { ThemeProvider } from './utils/theme';
 
 type AppProps = {
     history: History;
@@ -17,13 +18,15 @@ const App: FC<AppProps> = ({ history }) => {
     return (
         <GraphQLProvider>
             <IntlProvider locale={settings.locale}>
-                <CssBaseline />
-                <ConnectedRouter history={history}>
-                    <Switch>
-                        <Route exact path="/" component={HomeScreen} />
-                        <Route render={() => <div>Miss</div>} />
-                    </Switch>
-                </ConnectedRouter>
+                <ThemeProvider>
+                    <CssBaseline />
+                    <ConnectedRouter history={history}>
+                        <Switch>
+                            <Route exact path="/" component={HomeScreen} />
+                            <Route render={() => <div>Miss</div>} />
+                        </Switch>
+                    </ConnectedRouter>
+                </ThemeProvider>
             </IntlProvider>
         </GraphQLProvider>
     );
