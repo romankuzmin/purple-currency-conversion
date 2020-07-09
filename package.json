@@ -43,6 +43,7 @@
     "formik-material-ui": "^2.0.1",
     "graphql": "^15.3.0",
     "history": "^4.10.1",
+    "pg": "^8.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
@@ -51,7 +52,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
