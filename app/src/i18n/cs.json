@@ -1,4 +1,10 @@
 {
     "app.locales": "Jazyky",
-    "app.title": "Konverze měny"
+    "app.title": "Konverze měny",
+    "app.convertCurrencyForm.amount": "Částka",
+    "app.convertCurrencyForm.from": "Z měny",
+    "app.convertCurrencyForm.to": "Na měnu",
+    "app.convertCurrencyForm.submit": "Převést",
+    "app.convertCurrencyForm.errors.minAmount": "Částka musí být větší než nula",
+    "app.currencySelect.errors.fetchError": "Nelze načíst"
 }

@@ -1,4 +1,10 @@
 {
     "app.locales": "Sprachen",
-    "app.title": "Währungsumrechnung"
+    "app.title": "Währungsumrechnung",
+    "app.convertCurrencyForm.amount": "Betrag",
+    "app.convertCurrencyForm.from": "Aus der Währung",
+    "app.convertCurrencyForm.to": "Für die Währung",
+    "app.convertCurrencyForm.submit": "Konvertieren",
+    "app.convertCurrencyForm.errors.minAmount": "Der Betrag muss größer als Null sein",
+    "app.currencySelect.errors.fetchError": "Unfähig zu laden"
 }
