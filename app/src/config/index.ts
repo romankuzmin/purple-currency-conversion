@@ -3,6 +3,9 @@ import messages_cs from '../i18n/cs.json';
 import messages_de from '../i18n/de.json';
 
 export default {
+    api: {
+        url: 'http://localhost:4000/graphql',
+    },
     i18n: {
         locales: {
             en: {
