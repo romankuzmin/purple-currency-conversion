@@ -23,4 +23,7 @@ export default {
         },
         default: 'en',
     },
+    settings: {
+        currency: 'USD',
+    },
 };
