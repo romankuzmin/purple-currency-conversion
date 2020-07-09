@@ -12,7 +12,17 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        convertCurrency(amount: Float, from: String, to: String): Float
+        convertCurrency(input: ConvertCurrencyInput!): ConvertCurrencyPayload
+    }
+
+    input ConvertCurrencyInput {
+        amount: Float
+        from: String
+        to: String
+    }
+
+    type ConvertCurrencyPayload {
+        amount: Float
     }
 `;
 
@@ -25,9 +35,11 @@ type Context = {
 };
 
 type ConvertCurrencyArgs = {
-    amount: number;
-    from: string;
-    to: string;
+    input: {
+        amount: number;
+        from: string;
+        to: string;
+    };
 };
 
 const resolvers = {
@@ -36,8 +48,12 @@ const resolvers = {
             dataSources.exchangeRatesApi.getCurrencies(),
     },
     Mutation: {
-        convertCurrency: async (parent: void, { amount, from, to }: ConvertCurrencyArgs, { dataSources }: Context) =>
-            await dataSources.exchangeRatesApi.convert(amount, from, to),
+        convertCurrency: async (parent: void, { input }: ConvertCurrencyArgs, { dataSources }: Context) => {
+            const { amount, from, to } = input;
+            return {
+                amount: await dataSources.exchangeRatesApi.convert(amount, from, to),
+            };
+        },
     },
 };
 
