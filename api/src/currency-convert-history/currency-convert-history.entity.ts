@@ -11,10 +11,10 @@ export default class CurrencyConvertHistory {
     @Column()
     to!: string;
 
-    @Column({ type: "decimal", precision: 13, scale: 10 })
+    @Column({ type: "decimal", precision: 21, scale: 8 })
     amount!: number;
 
-    @Column({ type: "decimal", precision: 13, scale: 10 })
+    @Column({ type: "decimal", precision: 21, scale: 8 })
     convertedAmount!: number;
 
     @CreateDateColumn()
