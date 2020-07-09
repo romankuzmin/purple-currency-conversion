@@ -7,5 +7,8 @@
     "app.convertCurrencyForm.submit": "Konvertieren",
     "app.convertCurrencyForm.errors.minAmount": "Der Betrag muss größer als Null sein",
     "app.currencySelect.errors.fetchError": "Unfähig zu laden",
-    "app.convertedAmount.amount": "Der resultierende Betrag:"
+    "app.convertedAmount.amount": "Der resultierende Betrag:",
+    "app.convertedCurrencySummary.mostPopularDestinationCurrency": "Die beliebteste Zielwährung",
+    "app.convertedCurrencySummary.totalAmountConverted": "Gesamtbetrag überwiesen",
+    "app.convertedCurrencySummary.totalNumberOfConversions": "Gesamtzahl der eingereichten Überweisungsanfragen"
 }

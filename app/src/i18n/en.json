@@ -7,5 +7,8 @@
     "app.convertCurrencyForm.submit": "Convert",
     "app.convertCurrencyForm.errors.minAmount": "Amount must be greater than zero",
     "app.currencySelect.errors.fetchError": "Unable to load",
-    "app.convertedAmount.amount": "The resulting amount:"
+    "app.convertedAmount.amount": "The resulting amount:",
+    "app.convertedCurrencySummary.mostPopularDestinationCurrency": "Most popular destination currency",
+    "app.convertedCurrencySummary.totalAmountConverted": "Total amount converted",
+    "app.convertedCurrencySummary.totalNumberOfConversions": "Total number of conversion requests made"
 }
