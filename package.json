@@ -6,13 +6,14 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "PORT=9000 react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "nodemon --config ./api/nodemon.json",
+    "build": "tsc --project ./api/tsconfig.json",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
+    "app:start": "PORT=9000 react-app-rewired start",
+    "app:build": "react-app-rewired build",
     "app:lint": "eslint --config ./app/.eslintrc.js --quiet --fix './app/src/**/*.{js,ts,tsx}'",
-    "api:start": "nodemon --config ./api/nodemon.json",
-    "api:build": "tsc --project ./api/tsconfig.json",
+    "api:prod": "node ./api/dist/server.js",
     "api:lint": "eslint --config ./api/.eslintrc.js --quiet --fix './api/src/**/*.{js,ts,tsx}'",
     "lint": "npm run api:lint && npm run app:lint",
     "release": "standard-version"
