@@ -6,6 +6,7 @@ import { createStyles } from '@material-ui/styles';
 import React, { FC, useCallback, useState } from 'react';
 import AppTitle from '../components/AppTitle';
 import { ConvertCurrency } from '../components/ConvertCurrency';
+import { ConvertedAmount } from '../components/ConvertedAmount';
 import Header from '../components/Header';
 import { LocaleSelect } from '../components/Locale';
 import LocaleList from '../components/Locale/LocaleList';
@@ -24,17 +25,25 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+type ConvertedAmountState = {
+    amount: number;
+    currency: string;
+};
+
 const HomeScreen: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [amount, setAmount] = useState();
+    const [convertedAmount, setConvertedAmount] = useState<ConvertedAmountState>();
 
     const handleMenu = useCallback(() => {
         setOpen(!open);
     }, [open]);
 
-    const handleConverted = useCallback((amount) => {
-        setAmount(amount);
+    const handleConverted = useCallback((amount, currency) => {
+        setConvertedAmount({
+            amount,
+            currency,
+        });
     }, []);
 
     return (
@@ -52,7 +61,7 @@ const HomeScreen: FC = () => {
             </Header>
             <Container maxWidth="md" className={classes.container}>
                 <ConvertCurrency onConverted={handleConverted} />
-                {amount ? <div>Amount: {amount}</div> : null}
+                {convertedAmount && convertedAmount.amount ? <ConvertedAmount {...convertedAmount} /> : null}
             </Container>
             <Drawer anchor="left" open={open} onClose={handleMenu}>
                 <LocaleList />
