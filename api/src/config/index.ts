@@ -49,6 +49,18 @@ const config = convict({
             env: 'DATABASE_PORT',
         },
     },
+    exchangeRates: {
+        api: {
+            doc: 'The openexchangerates.org API',
+            format: String,
+            default: 'https://openexchangerates.org/api',
+        },
+        appKey: {
+            doc: 'The openexchangerates.org API KEY',
+            format: String,
+            default: '833d1fac0ea1412baf4009fdd5b1c993',
+        },
+    },
     settings: {
         totalAmountConvertedCurrency: {
             doc: 'Total amount converted currency',

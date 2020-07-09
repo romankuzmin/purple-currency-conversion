@@ -12,7 +12,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => ({
-        exchangeRatesApi: new ExchangeRatesDataSource(),
+        exchangeRatesApi: new ExchangeRatesDataSource(config.get('exchangeRates')),
         currencyConvertHistory: new CurrencyConvertHistoryDataSource({ store }),
     }),
     context: () => ({

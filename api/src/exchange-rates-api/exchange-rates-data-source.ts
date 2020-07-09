@@ -6,12 +6,18 @@ type Rates = {
     [currency: string]: number;
 };
 
-export default class ExchangeRatesDataSource extends RESTDataSource {
-    private accessKey = '833d1fac0ea1412baf4009fdd5b1c993';
+type Settings = {
+    api: string;
+    appKey: string;
+};
 
-    constructor() {
+export default class ExchangeRatesDataSource extends RESTDataSource {
+    private settings: Settings;
+
+    constructor(settings: Settings) {
         super();
-        this.baseURL = 'https://openexchangerates.org/api';
+        this.baseURL = settings.api;
+        this.settings = settings;
     }
 
     async convert(amount: number, from: string, to: string): Promise<number> {
@@ -40,7 +46,7 @@ export default class ExchangeRatesDataSource extends RESTDataSource {
     }
 
     protected async resolveURL(request: RequestOptions) {
-        request.params.append('app_id', this.accessKey);
+        request.params.append('app_id', this.settings.appKey);
 
         return super.resolveURL(request);
     }
