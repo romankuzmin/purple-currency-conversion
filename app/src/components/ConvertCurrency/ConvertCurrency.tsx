@@ -24,7 +24,7 @@ const CONVERT_CURRENCY = gql`
 `;
 
 type ConvertCurrencyProps = {
-    onConverted?: (amount: number) => void;
+    onConverted?: (amount: number, currency: string) => void;
 };
 
 const ConvertCurrency: FC<ConvertCurrencyProps> = ({ onConverted = () => {} }) => {
@@ -34,11 +34,11 @@ const ConvertCurrency: FC<ConvertCurrencyProps> = ({ onConverted = () => {} }) =
         async (values: ConvertCurrency, setSubmitting: (isSubmitting: boolean) => void) => {
             const result = await convertCurrency({ variables: { input: values } });
             if (result.data) {
-                onConverted(result.data.convertCurrency.amount);
+                onConverted(result.data.convertCurrency.amount, values.to);
             }
             setSubmitting(false);
         },
-        [],
+        [convertCurrency, onConverted],
     );
 
     return <ConversionForm onSubmit={handleSubmit} />;
