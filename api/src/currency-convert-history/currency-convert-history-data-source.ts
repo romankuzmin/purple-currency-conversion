@@ -29,22 +29,21 @@ export default class CurrencyConvertHistoryDataSource extends DataSource {
         return await this.repository.save(entity);
     }
 
-    async getStatistics(totalAmountConvertedCurrency: string): Promise<Statistics> {
+    async getStatistics(): Promise<Statistics> {
         return {
             mostPopularDestinationCurrency: await this.getMostPopularDestinationCurrency(),
-            totalAmountConverted: await this.getTotalAmountConverted(totalAmountConvertedCurrency),
+            currencyAmounts: await this.getAmountsByCurrency(),
             totalNumberOfConversions: (await this.repository.count()) || 0,
         };
     }
 
-    private async getTotalAmountConverted(currency: string) {
-        const { sum } = await this.repository
+    private async getAmountsByCurrency() {
+        return await this.repository
             .createQueryBuilder('history')
-            .select('SUM(history.convertedAmount)', 'sum')
-            .where('history.to = :currency', { currency })
-            .getRawOne();
-
-        return sum || 0;
+            .select('history.from', 'currency')
+            .addSelect('SUM("amount")', 'amount')
+            .groupBy('history.from')
+            .getRawMany();
     }
 
     private async getMostPopularDestinationCurrency() {
