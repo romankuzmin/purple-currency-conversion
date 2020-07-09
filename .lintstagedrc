@@ -1,16 +1,13 @@
 {
     "**/*.{md}": [
-        "prettier --write",
-        "git add"
+        "prettier --write"
     ],
     "./api/**/*.{ts,tsx}": [
         "npm run lint",
-        "prettier --parser typescript --write",
-        "git add"
+        "prettier --parser typescript --write"
     ],
     "./app/**/*.{ts,tsx}": [
         "npm run app:lint",
-        "prettier --parser typescript --write",
-        "git add"
+        "prettier --parser typescript --write"
     ]
 }
