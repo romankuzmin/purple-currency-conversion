@@ -24,7 +24,7 @@ const typeDefs = gql`
     }
 
     input StatisticsInput {
-        totalAmountConvertedCurrency: String
+        forCurrency: String
     }
 
     input ConvertCurrencyInput {
@@ -52,7 +52,7 @@ type Context = {
 
 type StatisticsArgs = {
     input: {
-        totalAmountConvertedCurrency: string;
+        forCurrency: string;
     };
 };
 
@@ -68,10 +68,21 @@ const resolvers = {
     Query: {
         currencies: async (parent: void, args: void, { dataSources }: Context) =>
             dataSources.exchangeRatesApi.getCurrencies(),
-        statistics: async (parent: void, { input }: StatisticsArgs, { dataSources, settings }: Context) =>
-            dataSources.currencyConvertHistory.getStatistics(
-                (input && input.totalAmountConvertedCurrency) || settings.totalAmountConvertedCurrency,
-            ),
+        statistics: async (parent: void, { input }: StatisticsArgs, { dataSources, settings }: Context) => {
+            const destinationCurrency =
+                input && input.forCurrency ? input.forCurrency : settings.totalAmountConvertedCurrency;
+            const stats = await dataSources.currencyConvertHistory.getStatistics();
+            const convertedAmounts = await dataSources.exchangeRatesApi.bulkConvert(
+                stats.currencyAmounts,
+                destinationCurrency,
+            );
+            const totalAmountConverted = convertedAmounts.reduce((result, item) => result + item, 0);
+
+            return {
+                ...stats,
+                totalAmountConverted,
+            };
+        },
     },
     Mutation: {
         convertCurrency: async (parent: void, { input }: ConvertCurrencyArgs, { dataSources }: Context) => {
