@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import CurrencyConvertHistoryDataSource from './currency-convert-history/currency-convert-history-data-source'
 import ExchangeRatesDataSource from './exchange-rates-api/exchange-rates-data-source';
 
 const typeDefs = gql`
@@ -28,6 +29,7 @@ const typeDefs = gql`
 
 type DataSources = {
     exchangeRatesApi: ExchangeRatesDataSource;
+    currencyConvertHistory: CurrencyConvertHistoryDataSource;
 };
 
 type Context = {
@@ -50,8 +52,14 @@ const resolvers = {
     Mutation: {
         convertCurrency: async (parent: void, { input }: ConvertCurrencyArgs, { dataSources }: Context) => {
             const { amount, from, to } = input;
+            const convertedAmount = await dataSources.exchangeRatesApi.convert(amount, from, to);
+            await dataSources.currencyConvertHistory.save({
+                ...input,
+                convertedAmount
+            });
+
             return {
-                amount: await dataSources.exchangeRatesApi.convert(amount, from, to),
+                amount: convertedAmount,
             };
         },
     },
