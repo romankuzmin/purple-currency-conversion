@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { createStyles } from '@material-ui/styles';
 import React, { FC, useCallback, useState } from 'react';
 import AppTitle from '../components/AppTitle';
+import { ConvertCurrency } from '../components/ConvertCurrency';
 import Header from '../components/Header';
 import { LocaleSelect } from '../components/Locale';
 import LocaleList from '../components/Locale/LocaleList';
@@ -26,10 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const HomeScreen: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const [amount, setAmount] = useState();
 
     const handleMenu = useCallback(() => {
         setOpen(!open);
     }, [open]);
+
+    const handleConverted = useCallback((amount) => {
+        setAmount(amount);
+    }, []);
 
     return (
         <>
@@ -45,7 +51,8 @@ const HomeScreen: FC = () => {
                 </Hidden>
             </Header>
             <Container maxWidth="md" className={classes.container}>
-                HomeScreen
+                <ConvertCurrency onConverted={handleConverted} />
+                {amount ? <div>Amount: {amount}</div> : null}
             </Container>
             <Drawer anchor="left" open={open} onClose={handleMenu}>
                 <LocaleList />
