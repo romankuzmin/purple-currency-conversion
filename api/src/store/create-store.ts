@@ -1,6 +1,5 @@
 import { createConnection } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import CurrencyConvertHistory from '../currency-convert-history/currency-convert-history';
 
 const isDevelop = process.env.NODE_ENV === 'development';
 
@@ -13,7 +12,7 @@ const options: PostgresConnectionOptions = {
     database: 'dbki42ni88f168',
     synchronize: isDevelop,
     logging: false,
-    entities: [CurrencyConvertHistory],
+    entities: ['../**/*.entity.ts'],
     ssl: {
         rejectUnauthorized: false
     },

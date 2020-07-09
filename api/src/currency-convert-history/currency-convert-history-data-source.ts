@@ -1,6 +1,6 @@
 import { DataSource } from 'apollo-datasource';
 import { Connection, DeepPartial, Repository } from 'typeorm';
-import CurrencyConvertHistory from './currency-convert-history';
+import CurrencyConvertHistory from './currency-convert-history.entity';
 
 type CurrencyConvertHistoryDataSourceArgs = {
     store: Promise<Connection>;
