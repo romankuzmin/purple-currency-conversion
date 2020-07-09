@@ -53,13 +53,13 @@ const resolvers = {
         convertCurrency: async (parent: void, { input }: ConvertCurrencyArgs, { dataSources }: Context) => {
             const { amount, from, to } = input;
             const convertedAmount = await dataSources.exchangeRatesApi.convert(amount, from, to);
-            await dataSources.currencyConvertHistory.save({
+            const currencyConvertHistory = await dataSources.currencyConvertHistory.save({
                 ...input,
                 convertedAmount
             });
 
             return {
-                amount: convertedAmount,
+                amount: currencyConvertHistory.convertedAmount,
             };
         },
     },
