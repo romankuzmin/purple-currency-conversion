@@ -31,9 +31,7 @@ type ConvertedCurrencyDashboardProps = {
 };
 
 const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refresh }) => {
-    const { loading, data, refetch } = useQuery(STATISTICS, {
-        pollInterval: 500,
-    });
+    const { loading, data, refetch } = useQuery(STATISTICS);
     const classes = useStyles();
 
     useEffect(() => {
