@@ -6,5 +6,6 @@
     "app.convertCurrencyForm.to": "On currency",
     "app.convertCurrencyForm.submit": "Convert",
     "app.convertCurrencyForm.errors.minAmount": "Amount must be greater than zero",
-    "app.currencySelect.errors.fetchError": "Unable to load"
+    "app.currencySelect.errors.fetchError": "Unable to load",
+    "app.convertedAmount.amount": "The resulting amount:"
 }
