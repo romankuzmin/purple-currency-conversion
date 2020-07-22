@@ -1,15 +1,33 @@
-import React, { FC, memo, useCallback } from 'react';
+import React, { FC, memo, useCallback, useEffect } from 'react';
 import { useConvertCurrencyMutation, useCurrenciesQuery } from '../../hooks';
 import ConversionForm, { ConversionFormValues } from '../ConversionForm/ConversionForm';
 import ErrorMessage from './ErrorMessage';
 
 type ConvertCurrencyProps = {
     onConverted?: (amount: number, currency: string) => void;
+    onError?: () => void;
+    onReady?: () => void;
 };
 
-const ConvertCurrency: FC<ConvertCurrencyProps> = ({ onConverted = () => {} }) => {
+const ConvertCurrency: FC<ConvertCurrencyProps> = ({
+    onConverted = () => {},
+    onError = () => {},
+    onReady = () => {},
+}) => {
     const { convertCurrency, error: mutationError } = useConvertCurrencyMutation();
-    const { loading, error: queryError, refetch } = useCurrenciesQuery();
+    const { loading, currencies, error: queryError, refetch } = useCurrenciesQuery();
+
+    useEffect(() => {
+        if (!loading && currencies.length > 0) {
+            onReady();
+        }
+    }, [loading, currencies]);
+
+    useEffect(() => {
+        if (queryError || mutationError) {
+            onError();
+        }
+    }, [onError, queryError, mutationError]);
 
     const handleRefresh = useCallback(async () => {
         refetch();

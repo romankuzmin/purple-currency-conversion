@@ -17,9 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type ConvertedCurrencyDashboardProps = {
     refresh: boolean;
+    onReady?: () => void;
 };
 
-const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refresh }) => {
+const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refresh, onReady = () => {} }) => {
     const { loading, statistics, refetch } = useStatisticsQuery();
     const classes = useStyles();
 
@@ -28,6 +29,12 @@ const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refre
             refetch();
         }
     }, [refresh, refetch]);
+
+    useEffect(() => {
+        if (!loading && statistics) {
+            onReady();
+        }
+    }, [loading, statistics]);
 
     const intl = useIntl();
     const totalAmountConvertedIntl = statistics.totalAmountConverted

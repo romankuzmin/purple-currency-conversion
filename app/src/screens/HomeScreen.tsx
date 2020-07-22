@@ -35,6 +35,8 @@ const HomeScreen: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [refreshDashboard, setRefreshDashboard] = useState(false);
+    const [dashboardReady, setDashboardReady] = useState(false);
+    const [error, setError] = useState(false);
     const [convertedAmount, setConvertedAmount] = useState<ConvertedAmountState>();
 
     useEffect(() => {
@@ -58,6 +60,19 @@ const HomeScreen: FC = () => {
         [setRefreshDashboard],
     );
 
+    const handleConvertCurrencyError = useCallback(() => {
+        setError(true);
+    }, []);
+
+    const handleConvertCurrencyReady = useCallback(() => {
+        setError(false);
+        setRefreshDashboard(true);
+    }, [setRefreshDashboard, setError]);
+
+    const handleConvertCurrencyDashboardReady = useCallback(() => {
+        setDashboardReady(true);
+    }, [setDashboardReady]);
+
     return (
         <>
             <Header>
@@ -72,9 +87,18 @@ const HomeScreen: FC = () => {
                 </Hidden>
             </Header>
             <Container maxWidth="md" className={classes.container}>
-                <ConvertCurrency onConverted={handleConverted} />
+                <ConvertCurrency
+                    onConverted={handleConverted}
+                    onError={handleConvertCurrencyError}
+                    onReady={handleConvertCurrencyReady}
+                />
                 {convertedAmount && convertedAmount.amount ? <ConvertedAmount {...convertedAmount} /> : null}
-                <ConvertedCurrencyDashboard refresh={refreshDashboard} />
+                {(dashboardReady || !error) && (
+                    <ConvertedCurrencyDashboard
+                        refresh={refreshDashboard}
+                        onReady={handleConvertCurrencyDashboardReady}
+                    />
+                )}
             </Container>
             <Drawer anchor="left" open={open} onClose={handleMenu}>
                 <LocaleList />
