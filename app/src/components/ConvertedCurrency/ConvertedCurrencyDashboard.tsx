@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/react-hooks';
 import { Grid, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { createStyles } from '@material-ui/styles';
-import { gql } from 'apollo-boost';
 import React, { FC, memo, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import config from '../../config';
+import useStatisticsQuery from '../../hooks/useStatisticsQuery';
 import ConvertedCurrencySummary from './ConvertedCurrencySummary';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,22 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const STATISTICS = gql`
-    {
-        statistics {
-            mostPopularDestinationCurrency
-            totalAmountConverted
-            totalNumberOfConversions
-        }
-    }
-`;
-
 type ConvertedCurrencyDashboardProps = {
     refresh: boolean;
 };
 
 const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refresh }) => {
-    const { loading, data, refetch } = useQuery(STATISTICS);
+    const { loading, statistics, refetch } = useStatisticsQuery();
     const classes = useStyles();
 
     useEffect(() => {
@@ -40,10 +29,9 @@ const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refre
         }
     }, [refresh, refetch]);
 
-    const stats = data && data.statistics ? data.statistics : {};
     const intl = useIntl();
-    const totalAmountConvertedIntl = stats.totalAmountConverted
-        ? intl.formatNumber(stats.totalAmountConverted, {
+    const totalAmountConvertedIntl = statistics.totalAmountConverted
+        ? intl.formatNumber(statistics.totalAmountConverted, {
               style: 'currency',
               currency: config.settings.currency,
           })
@@ -55,7 +43,7 @@ const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refre
                 <ConvertedCurrencySummary
                     loading={loading}
                     title="app.convertedCurrencySummary.mostPopularDestinationCurrency"
-                    value={stats.mostPopularDestinationCurrency}
+                    value={statistics.mostPopularDestinationCurrency}
                 />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -69,7 +57,7 @@ const ConvertedCurrencyDashboard: FC<ConvertedCurrencyDashboardProps> = ({ refre
                 <ConvertedCurrencySummary
                     loading={loading}
                     title="app.convertedCurrencySummary.totalNumberOfConversions"
-                    value={stats.totalNumberOfConversions}
+                    value={statistics.totalNumberOfConversions}
                 />
             </Grid>
         </Grid>
