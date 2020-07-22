@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.1.0...v1.2.0) (2020-07-22)
+
+
+### Features
+
+* component Alert ([95c6563](https://github.com/romankuzmin/purple-currency-conversion/commit/95c6563e98147a00c924ca776a7dc3acfc704ebe))
+* error handling ([0107310](https://github.com/romankuzmin/purple-currency-conversion/commit/0107310f6ca6d1616a3006f0b3f210129d0bfc74))
+* remove error state and refreshing ([8c73197](https://github.com/romankuzmin/purple-currency-conversion/commit/8c73197a3b5e048c31a457f86b0865dfeab78522))
+* shows dashboard if currency convert is ready ([621ebff](https://github.com/romankuzmin/purple-currency-conversion/commit/621ebff6c14de2a4b0e468dac34d92791d9f28a7))
+
 ## [1.1.0](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.0.2...v1.1.0) (2020-07-09)
 
 
