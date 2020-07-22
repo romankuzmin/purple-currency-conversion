@@ -1,36 +1,14 @@
-import { useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import React, { FC, memo, useCallback } from 'react';
-import ConversionForm from '../ConversionForm/ConversionForm';
+import { useConvertCurrencyMutation, useCurrenciesQuery } from '../../hooks';
+import ConversionForm, { ConversionFormValues } from '../ConversionForm/ConversionForm';
 import ErrorMessage from './ErrorMessage';
-import { useCurrenciesQuery } from '../../hooks';
-
-type ConvertCurrency = {
-    amount: number;
-    from: string;
-    to: string;
-};
-
-type ConvertCurrencyPayload = {
-    convertCurrency: {
-        amount: number;
-    };
-};
-
-const CONVERT_CURRENCY = gql`
-    mutation ConvertCurrency($input: ConvertCurrencyInput!) {
-        convertCurrency(input: $input) {
-            amount
-        }
-    }
-`;
 
 type ConvertCurrencyProps = {
     onConverted?: (amount: number, currency: string) => void;
 };
 
 const ConvertCurrency: FC<ConvertCurrencyProps> = ({ onConverted = () => {} }) => {
-    const [convertCurrency, { error: mutationError }] = useMutation<ConvertCurrencyPayload>(CONVERT_CURRENCY);
+    const { convertCurrency, error: mutationError } = useConvertCurrencyMutation();
     const { loading, error: queryError, refetch } = useCurrenciesQuery();
 
     const handleRefresh = useCallback(async () => {
@@ -38,11 +16,11 @@ const ConvertCurrency: FC<ConvertCurrencyProps> = ({ onConverted = () => {} }) =
     }, [refetch]);
 
     const handleSubmit = useCallback(
-        async (values: ConvertCurrency, setSubmitting: (isSubmitting: boolean) => void) => {
+        async (values: ConversionFormValues, setSubmitting: (isSubmitting: boolean) => void) => {
             try {
-                const result = await convertCurrency({ variables: { input: values } });
-                if (result.data) {
-                    onConverted(result.data.convertCurrency.amount, values.to);
+                const amount = await convertCurrency(values);
+                if (amount) {
+                    onConverted(amount, values.to);
                 }
             } catch (e) {
             } finally {

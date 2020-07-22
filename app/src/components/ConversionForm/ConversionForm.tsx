@@ -8,6 +8,18 @@ import React, { FC, memo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CurrencySelect } from '../Currency';
 
+export type ConversionFormValues = {
+    amount: number;
+    from: string;
+    to: string;
+};
+
+type ConversionFormProps = {
+    loading?: boolean;
+    disabled?: boolean;
+    onSubmit?: (values: ConversionFormValues, setSubmitting: (isSubmitting: boolean) => void) => void;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         grid: {
@@ -38,18 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-type ConversionFormValues = {
-    amount: number;
-    from: string;
-    to: string;
-};
-
-type ConversionFormProps = {
-    loading?: boolean;
-    disabled?: boolean;
-    onSubmit?: (values: ConversionFormValues, setSubmitting: (isSubmitting: boolean) => void) => void;
-};
 
 const ConversionForm: FC<ConversionFormProps> = ({ loading = false, disabled = false, onSubmit = () => {} }) => {
     const classes = useStyles();
