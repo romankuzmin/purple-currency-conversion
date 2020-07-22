@@ -46,11 +46,12 @@ type ConversionFormValues = {
 };
 
 type ConversionFormProps = {
+    loading?: boolean;
+    disabled?: boolean;
     onSubmit?: (values: ConversionFormValues, setSubmitting: (isSubmitting: boolean) => void) => void;
-    onValidate?: (valid: boolean) => void;
 };
 
-const ConversionForm: FC<ConversionFormProps> = ({ onSubmit = () => {}, onValidate = () => {} }) => {
+const ConversionForm: FC<ConversionFormProps> = ({ loading = false, disabled = false, onSubmit = () => {} }) => {
     const classes = useStyles();
     const intl = useIntl();
 
@@ -73,51 +74,65 @@ const ConversionForm: FC<ConversionFormProps> = ({ onSubmit = () => {}, onValida
                 onSubmit(values, setSubmitting);
             }}
         >
-            {({ submitForm, isSubmitting, values, errors }) => (
-                <Form name="convertCurrencyForm">
-                    <Paper>
-                        <div className={classes.formContent}>
-                            <Grid container className={classes.grid} spacing={2}>
-                                <Grid item xs={12} sm={3}>
-                                    <Field
-                                        component={TextField}
-                                        name="amount"
-                                        type="number"
-                                        label={<FormattedMessage id="app.convertCurrencyForm.amount" />}
-                                        variant="outlined"
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="end">{values.from}</InputAdornment>,
-                                        }}
-                                        className={classes.amount}
-                                        error={errors.amount}
-                                    />
+            {({ submitForm, isSubmitting, values, errors }) => {
+                const progress = isSubmitting || loading;
+                return (
+                    <Form name="convertCurrencyForm">
+                        <Paper>
+                            <div className={classes.formContent}>
+                                <Grid container className={classes.grid} spacing={2}>
+                                    <Grid item xs={12} sm={3}>
+                                        <Field
+                                            component={TextField}
+                                            name="amount"
+                                            type="number"
+                                            label={<FormattedMessage id="app.convertCurrencyForm.amount" />}
+                                            variant="outlined"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">{values.from}</InputAdornment>
+                                                ),
+                                            }}
+                                            className={classes.amount}
+                                            error={errors.amount}
+                                            disabled={disabled || progress}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} sm={3}>
+                                        <CurrencySelect
+                                            name="from"
+                                            label="app.convertCurrencyForm.from"
+                                            disabled={disabled || progress}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} sm={3}>
+                                        <div className={classes.toCurrency}>
+                                            <CurrencySelect
+                                                name="to"
+                                                label="app.convertCurrencyForm.to"
+                                                disabled={disabled || progress}
+                                            />
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            disabled={disabled || progress}
+                                            onClick={submitForm}
+                                            size="large"
+                                            className={classes.submitButton}
+                                        >
+                                            <FormattedMessage id="app.convertCurrencyForm.submit" />
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <CurrencySelect name="from" label="app.convertCurrencyForm.from" />
-                                </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <div className={classes.toCurrency}>
-                                        <CurrencySelect name="to" label="app.convertCurrencyForm.to" />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={12} sm={3}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        disabled={isSubmitting}
-                                        onClick={submitForm}
-                                        size="large"
-                                        className={classes.submitButton}
-                                    >
-                                        <FormattedMessage id="app.convertCurrencyForm.submit" />
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </div>
-                        {isSubmitting ? <LinearProgress /> : <div className={classes.progress} />}
-                    </Paper>
-                </Form>
-            )}
+                            </div>
+                            {progress ? <LinearProgress /> : <div className={classes.progress} />}
+                        </Paper>
+                    </Form>
+                );
+            }}
         </Formik>
     );
 };

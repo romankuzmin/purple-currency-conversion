@@ -1,6 +1,9 @@
 {
     "app.locales": "Languages",
     "app.title": "Currency conversion",
+    "app.currencyConvert.errors.convert": "Unexpected currency conversion error ... please try again later",
+    "app.currencyConvert.errors.fetchCurrencies": "Unexpected error fetching currencies",
+    "app.currencyConvert.refresh": "Refresh",
     "app.convertCurrencyForm.amount": "Amount",
     "app.convertCurrencyForm.from": "From currency",
     "app.convertCurrencyForm.to": "On currency",

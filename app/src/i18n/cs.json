@@ -1,6 +1,9 @@
 {
     "app.locales": "Jazyky",
     "app.title": "Konverze měny",
+    "app.currencyConvert.errors.convert": "Neočekávaná chyba při převodu měny... zkuste to později",
+    "app.currencyConvert.errors.fetchCurrencies": "Neočekávaná chyba při získávání měn",
+    "app.currencyConvert.refresh": "Obnovit",
     "app.convertCurrencyForm.amount": "Částka",
     "app.convertCurrencyForm.from": "Z měny",
     "app.convertCurrencyForm.to": "Na měnu",

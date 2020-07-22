@@ -1,6 +1,9 @@
 {
     "app.locales": "Sprachen",
     "app.title": "Währungsumrechnung",
+    "app.currencyConvert.errors.convert": "Unerwarteter Währungsumrechnungsfehler ... versuchen Sie es später erneut",
+    "app.currencyConvert.errors.fetchCurrencies": "Unerwarteter Fehler beim Abrufen von Währungen",
+    "app.currencyConvert.refresh": "Wiederherstellen",
     "app.convertCurrencyForm.amount": "Betrag",
     "app.convertCurrencyForm.from": "Aus der Währung",
     "app.convertCurrencyForm.to": "Für die Währung",
