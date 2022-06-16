@@ -54,11 +54,13 @@ const config = convict({
             doc: 'The openexchangerates.org API',
             format: String,
             default: 'https://openexchangerates.org/api',
+            env: 'EXCHANGE_RATES_API_ENDPOINT',
         },
         appKey: {
             doc: 'The openexchangerates.org API KEY',
             format: String,
             default: '833d1fac0ea1412baf4009fdd5b1c993',
+            env: 'EXCHANGE_RATES_API_KEY',
         },
     },
     settings: {
