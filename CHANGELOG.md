@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.2.0...v1.3.0) (2022-06-16)
+
+
+### Features
+
+* add exchange rates configuration to env variables ([bfe435d](https://github.com/romankuzmin/purple-currency-conversion/commit/bfe435d0666985dfeb23ecace2c290f3d4698f63))
+
 ## [1.2.0](https://github.com/romankuzmin/purple-currency-conversion/compare/v1.1.0...v1.2.0) (2020-07-22)
 
 
