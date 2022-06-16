@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "private": false,
   "engines": {
-    "node": ">=12.0.0"
+    "node": "16.x"
   },
   "scripts": {
     "start": "nodemon --config ./api/nodemon.json",
